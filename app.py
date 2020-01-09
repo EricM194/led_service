@@ -30,7 +30,7 @@ def ledoff():
 @app.route('/ledset')
 def ledset():
 	controller1 = MagicHomeApi(light_ip, 0)
-	rgb = request.form['rgb']
+	rgb = request.args.get('rgb')
 	controller1.update_device(rgb[0:2], rgb[3:5], rgb[6:8])
 	return 'Party Lights Set'
 
