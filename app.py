@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request
 
-from magichome import MagicHomeApi
+import magichue, time
+#docs here: https://pypi.org/project/python-magichue/
 
 app = Flask(__name__)
 
 light_ip = '192.168.2.12'
+light = magichue.Light(light_ip)
 
 
 @app.route('/')
@@ -19,25 +21,33 @@ def meow():
 
 @app.route('/ledon')
 def led():
-    controller1 = MagicHomeApi(light_ip, 0)
-    controller1.turn_on()
+    light.on = True
     return 'Party Lights On'
 
 
 @app.route('/ledoff')
 def ledoff():
-    controller1 = MagicHomeApi(light_ip, 0)
-    controller1.turn_off()
+    light.on = False
     return 'Party Lights Off'
 
 
 @app.route('/ledset')
 def ledset():
-    controller1 = MagicHomeApi(light_ip, 0)
     rgb = request.args.get('rgb')
-    controller1.update_device(int(rgb[0:2]), int(rgb[3:5]), int(rgb[6:8]))
-    return 'Party Lights Set'
+    if len(rgb) == 9:
+        light.rgb = (int(rgb[0:2]), int(rgb[3:5]), int(rgb[6:8]))
+        return 'Party Lights Set'
+    if len(rgb) == 12:
+        light.rgb = (int(rgb[0:2]), int(rgb[3:5]), int(rgb[6:8]))
+        light.brightness = int(rgb[9:11])*10
+        return 'Party Lights Set With Brightness'
+    return 'Party Lights Not Set'
 
+@app.route('/ledrainbow')
+def ledrainbow():
+    light.mode = magichue.RAINBOW_CROSSFADE
+    light.speed = 1
+    return 'Rainbow'
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
