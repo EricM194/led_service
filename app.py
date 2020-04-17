@@ -6,8 +6,6 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 light_ip = '192.168.2.12'
-light = magichue.Light(light_ip)
-
 
 @app.route('/')
 def index():
@@ -21,13 +19,13 @@ def meow():
 
 @app.route('/ledon')
 def led():
-    light.on = True
+    magichue.Light(light_ip).on = True
     return 'Party Lights On'
 
 
 @app.route('/ledoff')
 def ledoff():
-    light.on = False
+    magichue.Light(light_ip).on = False
     return 'Party Lights Off'
 
 
@@ -35,18 +33,18 @@ def ledoff():
 def ledset():
     rgb = request.args.get('rgb')
     if len(rgb) == 9:
-        light.rgb = (int(rgb[0:2]), int(rgb[3:5]), int(rgb[6:8]))
+        magichue.Light(light_ip).rgb = (int(rgb[0:2]), int(rgb[3:5]), int(rgb[6:8]))
         return 'Party Lights Set'
     if len(rgb) == 12:
-        light.rgb = (int(rgb[0:2]), int(rgb[3:5]), int(rgb[6:8]))
-        light.brightness = int(rgb[9:11])*10
+        magichue.Light(light_ip).rgb = (int(rgb[0:2]), int(rgb[3:5]), int(rgb[6:8]))
+        magichue.Light(light_ip).brightness = int(rgb[9:11])*10
         return 'Party Lights Set With Brightness'
     return 'Party Lights Not Set'
 
 @app.route('/ledrainbow')
 def ledrainbow():
-    light.mode = magichue.RAINBOW_CROSSFADE
-    light.speed = 1
+    magichue.Light(light_ip).mode = magichue.RAINBOW_CROSSFADE
+    magichue.Light(light_ip).speed = 0.75
     return 'Rainbow'
 
 
