@@ -1,11 +1,12 @@
 import magichue
 from flask import Flask, render_template, request
 
-#docs here: https://pypi.org/project/python-magichue/
+# docs here: https://pypi.org/project/python-magichue/
 
 app = Flask(__name__)
 
 light_ip = '192.168.2.12'
+
 
 @app.route('/')
 def index():
@@ -37,9 +38,10 @@ def ledset():
         return 'Party Lights Set'
     if len(rgb) == 12:
         magichue.Light(light_ip).rgb = (int(rgb[0:2]), int(rgb[3:5]), int(rgb[6:8]))
-        magichue.Light(light_ip).brightness = int(rgb[9:11])*10
+        magichue.Light(light_ip).brightness = int(rgb[9:11]) * 10
         return 'Party Lights Set With Brightness'
     return 'Party Lights Not Set'
+
 
 @app.route('/ledrainbow')
 def ledrainbow():
@@ -52,6 +54,7 @@ def ledrainbow():
 def page_not_found(e):
     # note that we set the 404 status explicitly
     return render_template('404.html'), 404
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
