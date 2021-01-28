@@ -130,3 +130,5 @@ dmypy.json
 
 /.name
 /inspectionProfiles
+.idea/misc.xml
+.idea/pi-led.iml

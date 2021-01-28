@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Pyhton Flask Website</title>
+	<title>Python Flask Website</title>
 	<link rel="stylesheet" type="text/css" media=screen href="../static/main.css" />
 </head>
 <body>
-	<h4>Running the index file from the temp dir</h4>
-	<button type="button">Turn on the lights</button>
-	<br>
-	<a href=ledon ><input type=”button” onclick="return false" value="LIGHTS ON"></a>
-	<br>
-	<a href=ledoff ><input type=”button” value="LIGHTS OFF"></a>
+<h1>This is the list of valid urls to control the lights</h1>
+<table>
+	<tr>
+		<th>Path</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><pre>{host}/ledon</pre></td>
+		<td>Turns on the LED light strip</td>
+	</tr>
+	<tr>
+		<td><pre>{host}/ledoff</pre></td>
+		<td>Turns off the LED light strip</td>
+	</tr>
+	<tr>
+		<td><pre>{host}/ledset?rgb=RRRGGGBBBWWW</pre></td>
+		<td>Set the LED color to the specified RGB value (values 0-255) with specified brightness (value 0-255)</td>
+	</tr>
+	<tr>
+		<td><pre>{host}/ledrainbow</pre></td>
+		<td>Set the LED color to fade though the colors of the rainbow</td>
+	</tr>
+</table>
 </body>
 </html>
