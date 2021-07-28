@@ -1,4 +1,4 @@
-# pi-led
+# led_service
 
 This project is for controlling my led strip though urls instead of the magic home app on my phone
 
