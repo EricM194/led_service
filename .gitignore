@@ -132,3 +132,4 @@ dmypy.json
 /inspectionProfiles
 .idea/misc.xml
 .idea/pi-led.iml
+desktop.ini
