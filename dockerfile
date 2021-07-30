@@ -6,4 +6,4 @@ RUN pip3 install python-magichue
 EXPOSE 5000
 COPY . .
 ENV LED_IP=0.0.0.0
-CMD [ "nohup python app.py > log.txt 2>&1"]
+CMD [ "nohup", "python", "app.py", ">>", "log.txt", "2>&1", "&"]
